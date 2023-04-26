@@ -1,9 +1,9 @@
 import { Button } from 'antd';
 
-export default function Page1() {
+export default function Page2() {
   return (
     <>
-      <h1>This is page one</h1>
+      <h1>This is page two</h1>
       <Button type="primary">Example</Button>
     </>
   );
