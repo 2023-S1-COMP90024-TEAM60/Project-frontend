@@ -1,17 +1,15 @@
-import type { ReactElement } from 'react'
-import AppLayout from '../components/AppLayout'
-import type { NextPageWithLayout } from './_app'
+// export default Page
+import Head from "next/head";
+import styles from '@/styles/home.module.scss'
 
-const Page: NextPageWithLayout = () => {
-  return <h1>This is Home page</h1>
-}
-
-Page.getLayout = function getLayout(page: ReactElement) {
+export default function Home() {
   return (
-    <AppLayout>
-      {page}
-    </AppLayout>
-  )
+    <>
+      <Head>
+        <title>Home</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <h1 className={styles.msg}>This is Homepage</h1>
+    </>
+  );
 }
-
-export default Page
