@@ -1,4 +1,4 @@
-import { toPascalCase } from "@/functions/pascalCase";
+import { toPascalCase } from "@/utils/functions/pascalCase";
 import { useRouterPath } from "./useRouterPath"
 
 export const useBreadcrumbPath = () => {

@@ -7,7 +7,7 @@ import {
 import { ReactNode, useState } from 'react'
 import { Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
 import { useRouter } from 'next/router';
-import { useBreadcrumbPath } from '@/hooks/useBreadcrumbPath';
+import { useBreadcrumbPath } from '@/utils/hooks/useBreadcrumbPath';
 interface Props {
   children?: ReactNode
 }
