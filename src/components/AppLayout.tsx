@@ -1,8 +1,7 @@
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
+  RobotOutlined,
   TeamOutlined,
+  TrophyOutlined,
 } from '@ant-design/icons';
 import { ReactNode, useState } from 'react'
 import { Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
@@ -16,18 +15,12 @@ const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 
 const menuItems: MenuItem[] = [
-  { label: "Home", key: "/home", icon: <PieChartOutlined /> },
-  { label: "Page2", key: "/page2", icon: <DesktopOutlined /> },
-  { label: "User", key:"A", icon: <DesktopOutlined />, children: [
-    { label: "Tom", key: "/user/page3" },
-    { label: "Bill", key: "/user/page4" },
-    { label: "Alex", key: "/user/page5" },
+  { label: "AI", key: "/ai", icon: <RobotOutlined /> },
+  { label: "Personality", key: "/personality", icon: <TeamOutlined /> },
+  { label: "Entertainment", key:"entertainment", icon: <TrophyOutlined />, children: [
+    { label: "Esports", key: "/entertainment/esports" },
+    { label: "Kpop", key: "/entertainment/kpop" },
   ]},
-  { label: "Team", key:"B", icon: <TeamOutlined />, children: [
-    { label: "Team 1", key: "/team/page6" },
-    { label: "Team 2", key: "/team/page7" },
-  ]},
-  { label: "Files", key: "/page8", icon: <FileOutlined /> },
 ]
 
 export default function AppLayout({ children }: Props) {

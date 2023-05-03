@@ -1,13 +1,13 @@
 import Head from "next/head";
 
-export default function Page2() {
+export default function Kpop() {
   return (
     <>
       <Head>
-        <title>Page2</title>
+        <title>Kpop</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>This is page two</h1>
+      <h1>This is kpop page</h1>
     </>
   );
 }
