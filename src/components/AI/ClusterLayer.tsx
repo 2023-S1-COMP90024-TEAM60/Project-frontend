@@ -10,7 +10,6 @@ const ClusterLayer = ({ heatMapData }: any) => {
     <Source
       id="earthquakes"
       type="geojson"
-      // data="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"
       data={heatMapData}
       cluster={true}
       clusterMaxZoom={14}

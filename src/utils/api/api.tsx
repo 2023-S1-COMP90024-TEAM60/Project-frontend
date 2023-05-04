@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000/api/v1';
+const baseUrl = 'http://localhost:8000';
 
-export const getDoc = (value: string) => axios(`${baseUrl}/docs/${value}`, {
+export const getAIData = () => axios(`${baseUrl}/AI/mapData`, {
   method: 'GET',
 });
