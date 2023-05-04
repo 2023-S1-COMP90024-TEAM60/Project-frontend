@@ -15,7 +15,7 @@ interface Props {
 
 function formatTime(time:any) {
   const date = new Date(time);
-  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 }
 
 function ControlPanel({ setCheckedLayer, startTime, endTime, onChangeTime, allDays, onChangeAllDays, selectedTime, checkedLayer }: Props) {
