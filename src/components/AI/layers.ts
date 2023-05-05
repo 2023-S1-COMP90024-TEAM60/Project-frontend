@@ -1,4 +1,4 @@
-import type {LayerProps} from 'react-map-gl';
+import type {FillLayer, LayerProps} from 'react-map-gl';
 const MAX_ZOOM_LEVEL = 14;
 
 export const clusterLayerStyle: LayerProps = {
@@ -71,5 +71,27 @@ export const heatmapLayerStyle: LayerProps = {
     'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, MAX_ZOOM_LEVEL, 20],
     // Transition from heatmap to circle layer by zoom level
     'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0]
+  }
+};
+
+export const sentimentChoroplethMapLayerStyle: FillLayer = {
+  id: 'data',
+  type: 'fill',
+  paint: {
+    'fill-color': {
+      property: 'percentile',
+      stops: [
+        [0, '#3288bd'],
+        [1, '#66c2a5'],
+        [2, '#abdda4'],
+        [3, '#e6f598'],
+        [4, '#ffffbf'],
+        [5, '#fee08b'],
+        [6, '#fdae61'],
+        [7, '#f46d43'],
+        [8, '#d53e4f']
+      ]
+    },
+    'fill-opacity': 0.8
   }
 };

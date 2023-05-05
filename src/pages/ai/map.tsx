@@ -1,7 +1,6 @@
 // export default Page
 import Head from "next/head";
 import Map, { GeoJSONSource,MapRef } from 'react-map-gl';
-import MAPBOX_TOKEN from '../utils/MAPBOX_TOKEN';
 import { useEffect, useMemo, useRef, useState } from "react";
 import ControlPanel from "@/components/AI/ControlPanel";
 import HeatMapLayer from "@/components/AI/HeatMapLayer";
@@ -9,8 +8,9 @@ import { clusterLayerStyle } from "@/components/AI/layers";
 import ClusterLayer from "@/components/AI/ClusterLayer";
 import { getAIData } from "@/utils/api/api";
 import { StatusCodes } from "http-status-codes";
+import MAPBOX_TOKEN from "@/utils/MAPBOX_TOKEN";
 
-export default function AI() {
+export default function AIMap() {
   const [checkedLayer, setCheckedLayer] = useState<string[]>(['cluster']);
   const [allDays, useAllDays] = useState(true);
   const [timeRange, setTimeRange] = useState([0, 0]);

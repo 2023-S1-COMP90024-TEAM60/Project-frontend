@@ -1,5 +1,6 @@
 import {
   RobotOutlined,
+  SmileOutlined,
   TeamOutlined,
   TrophyOutlined,
 } from '@ant-design/icons';
@@ -15,12 +16,19 @@ const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 
 const menuItems: MenuItem[] = [
-  { label: "AI", key: "/ai", icon: <RobotOutlined /> },
+  { label: "AI", key: "/ai", icon: <RobotOutlined />, children: [
+    { label: "Map", key: "/ai/map" },
+    { label: "Charts", key: "/ai/charts" },
+  ] },
   { label: "Personality", key: "/personality", icon: <TeamOutlined /> },
   { label: "Entertainment", key:"entertainment", icon: <TrophyOutlined />, children: [
     { label: "Esports", key: "/entertainment/esports" },
     { label: "Kpop", key: "/entertainment/kpop" },
   ]},
+  { label: "Sentiment", key: "/sentiment", icon: <SmileOutlined />, children: [
+    { label: "Map", key: "/sentiment/map" },
+    { label: "Charts", key: "/sentiment/charts" },
+  ] },
 ]
 
 export default function AppLayout({ children }: Props) {
