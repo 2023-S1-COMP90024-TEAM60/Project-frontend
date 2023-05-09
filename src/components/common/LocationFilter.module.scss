@@ -1,0 +1,16 @@
+.custom-dropdown-button {
+    width: 200px; // Adjust as needed
+  
+    .anticon {
+      margin-left: 4px;
+    }
+  
+    &:hover {
+      background: #e6f7ff;
+    }
+  }
+  
+.ant-dropdown-menu {
+    max-height: 200px; // Adjust as needed
+    overflow-y: auto;
+}
