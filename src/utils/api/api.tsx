@@ -14,7 +14,7 @@ export const getAllLgaInfo = () => axios(`${baseUrl}/LGA/getAllLgaInfo`, {
   method: 'GET',
 });
 
-export const getAICount = (stateCode: number, top: number) => axios(`${baseUrl}/AI/count`, {
+export const getAICount = (stateCode: number, top: number) => axios(`${baseUrl}/AI/tweetsCount`, {
   method: 'GET',
   params: {
     state_code: stateCode,
