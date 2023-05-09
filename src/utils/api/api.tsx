@@ -10,7 +10,7 @@ export const getSentimentData = () => axios('https://raw.githubusercontent.com/u
   method: 'GET',
 });
 
-export const getAllLgaInfo = () => axios(`${baseUrl}/LGA/getAllLgaInfo`, {
+export const getAllLgaInfo = () => axios(`${baseUrl}/LGA/lgaInfo`, {
   method: 'GET',
 });
 
@@ -31,7 +31,7 @@ export const getSudoLocationInfo = (stateCodes: string[], lgaCodes: string[]) =>
     params.append("lga_codes", lgaCodes[i]);
   }
 
-  return axios(`${baseUrl}/sudo/getLocationsInfo`, {
+  return axios(`${baseUrl}/sudo/locationsInfo`, {
     method: 'GET',
     params: params
   });
