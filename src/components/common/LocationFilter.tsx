@@ -4,15 +4,12 @@ import type { MenuProps } from 'antd';
 import { Button, Dropdown, Space, Row, Col, Typography } from 'antd';
 const { Text } = Typography;
 
-const LocationFilter = ({ suburbs, states, selectedState, selectedSuburb, handleStateMenuClick, handleSuburbMenuClick }: any) => {
+const LocationFilter = ({ states, selectedState, handleStateMenuClick }: any) => {
 
     let selectedState_name = "All states";
     let selectedSuburb_name = "All suburbs";
     if (selectedState > 0) {
-        selectedState_name = states[selectedState]
-    }
-    if (selectedSuburb > 0) {
-        selectedSuburb_name = suburbs[selectedSuburb]["name"]
+        selectedState_name = states[selectedState]["name"]
     }
 
     const stateMenuItems: MenuProps['items'] = [
@@ -23,7 +20,7 @@ const LocationFilter = ({ suburbs, states, selectedState, selectedSuburb, handle
     ]
     for (let k in states) {
         stateMenuItems.push({
-            label: states[k],
+            label: states[k]["name"],
             key: k,
         })
     }

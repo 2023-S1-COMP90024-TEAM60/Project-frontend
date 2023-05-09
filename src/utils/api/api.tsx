@@ -36,3 +36,18 @@ export const getSudoLocationInfo = (stateCodes: string[], lgaCodes: string[]) =>
     params: params
   });
 }
+
+export const getAILangCount = (stateCodes: string[], lgaCodes: string[]) => {
+  const params = new URLSearchParams();
+  for (let i = 0; i < stateCodes.length; i++) {
+    params.append("state_codes", stateCodes[i]);
+  }
+  for (let i = 0; i < lgaCodes.length; i++) {
+    params.append("lga_codes", lgaCodes[i]);
+  }
+
+  return axios(`${baseUrl}/AI/langCount`, {
+    method: 'GET',
+    params: params
+  });
+}
