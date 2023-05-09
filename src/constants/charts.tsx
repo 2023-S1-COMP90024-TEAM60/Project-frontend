@@ -95,3 +95,26 @@ export const colorCode = [
     "#82ca9d",
     "#ffc658"
 ]
+
+export const stackedChartColorCode = [
+    "#FF6384",
+    "#36A2EB",
+    "#FFCE56",
+    "#4BC0C0",
+    "#9966FF",
+    "#FF9F40",
+    "#59E817",
+    "#FF99CC",
+    "#3D9970",
+    "#FF4136",
+    "#F012BE",
+    "#2ECC40",
+    "#0074D9",
+    "#FFDC00",
+    "#7FDBFF",
+    "#FF851B",
+    "#B10DC9",
+    "#FF6D00",
+    "#2ECC71",
+    "#001f3f"
+]
