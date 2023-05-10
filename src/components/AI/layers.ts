@@ -117,12 +117,19 @@ export const sentimentChoroplethMapLayerStyle: FillLayer = {
         [1, '#2196f3'],
         [2, '#64b5f6'],
         [3, '#90caf9'],
-        [4, '#ffffff'],
+        [4, 'rgb(52,51,50)'],
         [5, '#ffcdd2'],
         [6, '#e57373'],
         [7, '#ef5350'],
         [8, '#e53935'],
       ]
+      // stops: [
+      //   [0, '#2196f3'],
+      //   [1, '#90caf9'],
+      //   [2, '#757575'],
+      //   [3, '#ffcdd2'],
+      //   [4, '#ef5350'],
+      // ]
       // stops: [
       //   [0, '#ffebee'],
       //   [1, '#ffcdd2'],
@@ -136,6 +143,6 @@ export const sentimentChoroplethMapLayerStyle: FillLayer = {
       //   [9, '#b71c1c'],
       // ]
     },
-    'fill-opacity': 1
+    'fill-opacity': 0.8
   }
 };

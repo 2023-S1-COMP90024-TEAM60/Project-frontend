@@ -5,7 +5,7 @@ import { sentimentChoroplethMapLayerStyle } from "@/components/AI/layers";
 import { getSentimentData } from "@/utils/api/api";
 import { StatusCodes } from "http-status-codes";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { updatePercentiles } from "./utils";
+import { updatePercentiles } from "../../utils/utils";
 
 export default function SentimentMap() {
   const [time, setTime] = useState(8);

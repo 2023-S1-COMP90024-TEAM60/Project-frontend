@@ -6,7 +6,7 @@ export const getAIData = () => axios(`${baseUrl}/AI/aiData`, {
   method: 'GET',
 });
 
-export const getSentimentData = () => axios(`${baseUrl}/STATE/sentimentData`, {
+export const getSentimentData = () => axios(`${baseUrl}/LGA/sentimentData`, {
   method: 'GET',
 });
 

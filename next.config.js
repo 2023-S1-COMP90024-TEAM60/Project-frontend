@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/ai',
+        destination: '/ai/map',
         permanent: true,
       },
     ]
