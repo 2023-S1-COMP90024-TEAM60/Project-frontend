@@ -8,7 +8,7 @@ export function updatePercentiles(
   accessor: (f: GeoJSON.Feature<GeoJSON.Geometry>) => number
 ): GeoJSON.FeatureCollection<GeoJSON.Geometry> {
   const {features} = featureCollection;
-  const scale = scaleQuantile().domain(features.map(accessor)).range(range(9));
+  const scale = scaleQuantile().domain([-0.01, 0.01]).range(range(9));
   return {
     type: 'FeatureCollection',
     features: features.map(f => {

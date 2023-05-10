@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 function ControlPanel(props:any) {
-  const {year} = props;
+  const {time} = props;
 
   return (
     <div style={{
@@ -16,7 +16,7 @@ function ControlPanel(props:any) {
       <div style={{padding: '12px'}}>
         <h3>Interactive GeoJSON</h3>
         <p>
-        Map showing median household income by state in year <b>{year}</b>. Hover over a state to
+        Map showing median household income by state in year <b>{time}</b>. Hover over a state to
         see details.
         </p>
         <p>
@@ -31,12 +31,12 @@ function ControlPanel(props:any) {
           padding: '12px',
           display: 'flex',
         }}>
-        <label style={{ width: 'auto' }}>Year</label>
+        <label style={{ width: 'auto' }}>Time</label>
         <input
           type="range"
-          value={year}
-          min={1995}
-          max={2015}
+          value={time}
+          min={0}
+          max={23}
           step={1}
           onChange={evt => props.onChange(evt.target.value)}
         />

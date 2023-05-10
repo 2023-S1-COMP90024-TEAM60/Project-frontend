@@ -8,7 +8,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { updatePercentiles } from "./utils";
 
 export default function SentimentMap() {
-  const [year, setYear] = useState(2015);
+  const [time, setTime] = useState(8);
   const [allData, setAllData] = useState<any>(null);
   const [hoverInfo, setHoverInfo] = useState<any>(null);
   useEffect(() => {
@@ -32,18 +32,18 @@ export default function SentimentMap() {
   }, []);
 
   const data = useMemo(() => {
-    return allData && updatePercentiles(allData, f => f.properties?.income[year]);
-  }, [allData, year]);
+    return allData && updatePercentiles(allData, f => f.properties?.sentiment[time]);
+  }, [allData, time]);
 
   return (
     <>
       <Map
         initialViewState={{
-          latitude: 40,
-          longitude: -100,
-          zoom: 3
+          longitude: 133.7751,
+          latitude: -25.2744,
+          zoom: 3,
         }}
-        mapStyle="mapbox://styles/mapbox/light-v9"
+        mapStyle="mapbox://styles/mapbox/dark-v9"
         mapboxAccessToken={MAPBOX_TOKEN}
         interactiveLayerIds={['data']}
         onMouseMove={onHover}
@@ -52,7 +52,7 @@ export default function SentimentMap() {
         <Source type="geojson" data={data}>
           <Layer {...sentimentChoroplethMapLayerStyle} />
         </Source>
-        <ControlPanel year={year} onChange={(value:any) => setYear(value)} />
+        <ControlPanel time={time} onChange={(value:any) => setTime(value)} />
         {hoverInfo && (
           <div className="tooltip"
             style={{
@@ -68,9 +68,9 @@ export default function SentimentMap() {
               zIndex: '999',
               pointerEvents: 'none',
             }}>
-            <div>State: {hoverInfo.feature.properties.name}</div>
-            <div>Median Household Income: {hoverInfo.feature.properties.value}</div>
-            <div>Percentile: {(hoverInfo.feature.properties.percentile / 8) * 100}</div>
+            <div>Suburb: {hoverInfo.feature.properties.state_name}</div>
+            <div>Sentiment Value: {(hoverInfo.feature.properties.value)}</div>
+            <div>Percentile: {hoverInfo.feature.properties.percentile}</div>
           </div>
         )}
       </Map>
