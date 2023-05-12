@@ -58,3 +58,14 @@ export const getAILangCount = (stateCodes: string[], lgaCodes: string[]) => {
 export const getAustraliaSentimentTimeline = () => axios(`${baseUrl}/Sentiment/timeline`, {
   method: 'GET',
 });
+export const getCovidTimelineCount = () => axios(`${baseUrl}/mastodon/covid/timelineCount`, {
+  method: 'GET',
+});
+
+export const getCovidKeywordsCount = () => axios(`${baseUrl}/mastodon/covid/keywordsCount`, {
+  method: 'GET',
+});
+
+export const getKpopAllGroupData = () => axios(`${baseUrl}/kpop/allGroup`, {
+  method: 'GET',
+});

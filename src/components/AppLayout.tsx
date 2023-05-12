@@ -20,7 +20,7 @@ const menuItems: MenuItem[] = [
     { label: "Map", key: "/ai/map" },
     { label: "Charts", key: "/ai/charts" },
   ] },
-  { label: "Personality", key: "/personality", icon: <TeamOutlined /> },
+  { label: "Covid-19", key: "/covid19", icon: <TeamOutlined /> },
   { label: "Entertainment", key:"entertainment", icon: <TrophyOutlined />, children: [
     { label: "Esports", key: "/entertainment/esports" },
     { label: "Kpop", key: "/entertainment/kpop" },
