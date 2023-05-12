@@ -6,8 +6,11 @@ export const getAIData = () => axios(`${baseUrl}/AI/aiData`, {
   method: 'GET',
 });
 
-export const getSentimentData = () => axios(`${baseUrl}/LGA/sentimentData`, {
+export const getSentimentData = (needLoc: boolean = true) => axios(`${baseUrl}/LGA/sentimentData`, {
   method: 'GET',
+  params: {
+    need_loc: needLoc,
+  }
 });
 
 export const getAllLgaInfo = () => axios(`${baseUrl}/LGA/lgaInfo`, {
@@ -51,3 +54,7 @@ export const getAILangCount = (stateCodes: string[], lgaCodes: string[]) => {
     params: params
   });
 }
+
+export const getAustraliaSentimentTimeline = () => axios(`${baseUrl}/Sentiment/timeline`, {
+  method: 'GET',
+});

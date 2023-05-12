@@ -4,12 +4,15 @@ import type { MenuProps } from 'antd';
 import { Button, Dropdown, Space, Row, Col, Typography } from 'antd';
 const { Text } = Typography;
 
-const LocationFilter = ({ states, selectedState, handleStateMenuClick }: any) => {
+const LocationFilter = ({ states, selectedState, handleStateMenuClick, suburbs, selectedSuburb, handleSuburbMenuClick }: any) => {
 
-    let selectedState_name = "All states";
-    let selectedSuburb_name = "All suburbs";
+    let selectedStateName = "All states";
+    let selectedSuburbName = "All suburbs";
     if (selectedState > 0) {
-        selectedState_name = states[selectedState]["name"]
+        selectedStateName = states[selectedState]["name"]
+    }
+    if (selectedSuburb > 0) {
+        selectedSuburbName = suburbs[selectedSuburb]["name"]
     }
 
     const stateMenuItems: MenuProps['items'] = [
@@ -29,6 +32,26 @@ const LocationFilter = ({ states, selectedState, handleStateMenuClick }: any) =>
         onClick: handleStateMenuClick,
     }
 
+    const suburbMenuItems: MenuProps['items'] = [
+        {
+            label: "All suburbs",
+            key: 0
+        }
+    ]
+    for (let k in suburbs) {
+        if (suburbs[k]["state_id"] == selectedState) {
+            suburbMenuItems.push({
+                label: suburbs[k]["name"],
+                key: k,
+            })
+        }
+            
+    }
+    const suburbMenuProps = {
+        items: suburbMenuItems,
+        onClick: handleStateMenuClick,
+    }
+
     return (
         <>
             <Row gutter={[16, 16]}>
@@ -41,14 +64,25 @@ const LocationFilter = ({ states, selectedState, handleStateMenuClick }: any) =>
                 <Dropdown menu={stateMenuProps} trigger={['click']}>
                     <Button style={{ width: "100%" }}>
                         <Space>
-                            {selectedState_name}
+                            {selectedStateName}
                             <DownOutlined />
                         </Space>
                     </Button>
                 </Dropdown>
             </Row>
+            {suburbs &&
+                <Row gutter={[16, 16]} style={{ marginTop: 10 }}>
+                    <Dropdown menu={suburbMenuProps} trigger={['click']} disabled={selectedState == 0}>
+                        <Button style={{ width: "100%" }}>
+                            <Space>
+                                {selectedSuburbName}
+                                <DownOutlined />
+                            </Space>
+                        </Button>
+                    </Dropdown>
+                </Row>
+            }
         </>
-
     )
 }
 
