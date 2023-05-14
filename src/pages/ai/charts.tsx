@@ -15,11 +15,11 @@ import styles from "@/pages/ai/charts.module.scss";
 function getDistributionData(typeKey: any, totalKey: string, aiCountData: any, sudoLocationInfoData: any, selectedState: Number) {
   const data = [];
   if (Object.keys(aiCountData).length && Object.keys(sudoLocationInfoData).length) {
-    for (let i in typeKey) {
+    for (const i in typeKey) {
       const data_point: any = {
         name: typeKey[i]["name"]
       }
-      for (let loc_code in aiCountData["ai_count"]) {
+      for (const loc_code in aiCountData["ai_count"]) {
         if (selectedState != 0) {
           const lga_code = translateStateLgaToLga(loc_code);
           data_point[lga_code] = (
@@ -39,7 +39,7 @@ function getDistributionData(typeKey: any, totalKey: string, aiCountData: any, s
   return data;
 }
 
-function getLanguageDistributionData(typeKey: any, totalKey: string, langCountData: any, sudoLocationInfoData: any, lgaInfo: any, selectedState: Number, isEng: boolean = true) {
+function getLanguageDistributionData(typeKey: any, totalKey: string, langCountData: any, sudoLocationInfoData: any, lgaInfo: any, selectedState: Number, isEng = true) {
   const data: any = [];
   if (Object.keys(lgaInfo).length == 0) {
     return data;
@@ -59,7 +59,7 @@ function getLanguageDistributionData(typeKey: any, totalKey: string, langCountDa
       loc_data_type = "lga_data";
       loca_type = "suburbs";
     }
-    for (let loc_code in langCountData[loc_data_type]) {
+    for (const loc_code in langCountData[loc_data_type]) {
       const data_point: any = {}
       data_point["name"] = lgaInfo[loca_type][loc_code]["name"];
       data_point["location_lang_count"] = (
@@ -93,7 +93,7 @@ function getStackChartDistributiondData(typeKey: any, totalKey: string, aiCountD
         loc_code = translateStateLgaToLga(loc_code).toString();
       }
       data_point["name"] = lgaInfo[loca_type][loc_code]["name"];
-      for (let i in typeKey) {
+      for (const i in typeKey) {
         data_point[typeKey[i]["id"]] = (
           sudoLocationInfoData[loc_data_type][loc_code][typeKey[i]["id"]]
           / sudoLocationInfoData[loc_data_type][loc_code][totalKey] * 100
@@ -154,7 +154,7 @@ export default function AICharts() {
     };
     fetchAICountData().then(async (data) => {
       const codes: string[] = []
-      for (let k in data["ai_count"]) {
+      for (const k in data["ai_count"]) {
         if (selectedState != 0) {
           const lga_code = JSON.parse(k.replace(/'/g, '"'))[1];
           codes.push(lga_code);

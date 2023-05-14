@@ -6,15 +6,20 @@ import { getSentimentData } from "@/utils/api/api";
 import { StatusCodes } from "http-status-codes";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { updatePercentiles } from "../../utils/utils";
+import { Skeleton } from "antd";
+import Head from "next/head";
 
 export default function SentimentMap() {
   const [time, setTime] = useState(8);
   const [allData, setAllData] = useState<any>(null);
   const [hoverInfo, setHoverInfo] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await getSentimentData()
       if (response.status === StatusCodes.OK) {
+        setLoading(false);
         setAllData(response.data)
       }
     };
@@ -37,7 +42,12 @@ export default function SentimentMap() {
 
   return (
     <>
-      <Map
+      <Head>
+        <title>Sentiment</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <h3 style={{ marginBottom: '16px', textAlign: 'center'}}>The map for the average sentiment value according to time</h3>
+      {loading ? <Skeleton active />: <Map
         initialViewState={{
           longitude: 133.7751,
           latitude: -25.2744,
@@ -68,12 +78,11 @@ export default function SentimentMap() {
               zIndex: '999',
               pointerEvents: 'none',
             }}>
-            <div>Suburb: {hoverInfo.feature.properties.state_name}</div>
+            <div>Suburb: {hoverInfo.feature.properties.name}</div>
             <div>Sentiment Value: {(hoverInfo.feature.properties.value)}</div>
-            <div>Percentile: {hoverInfo.feature.properties.percentile}</div>
           </div>
         )}
-      </Map>
+      </Map>}
     </>
   );
 }

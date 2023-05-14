@@ -21,10 +21,7 @@ const menuItems: MenuItem[] = [
     { label: "Charts", key: "/ai/charts" },
   ] },
   { label: "Covid-19", key: "/covid19", icon: <TeamOutlined /> },
-  { label: "Entertainment", key:"entertainment", icon: <TrophyOutlined />, children: [
-    { label: "Esports", key: "/entertainment/esports" },
-    { label: "Kpop", key: "/entertainment/kpop" },
-  ]},
+  { label: "Kpop", key: "/kpop", icon: <TrophyOutlined /> },
   { label: "Sentiment", key: "/sentiment", icon: <SmileOutlined />, children: [
     { label: "Map", key: "/sentiment/map" },
     { label: "Charts", key: "/sentiment/charts" },
@@ -58,7 +55,7 @@ export default function AppLayout({ children }: Props) {
             {children}
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>
+        <Footer style={{ textAlign: 'center' }}>COMP90024 TEAM60 A2 ©2023 S1</Footer>
       </Layout>
     </Layout>
   );

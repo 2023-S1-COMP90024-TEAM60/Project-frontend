@@ -14,13 +14,10 @@ function ControlPanel(props:any) {
       width: '250px'
     }}>
       <div style={{padding: '12px'}}>
-        <h3>Interactive GeoJSON</h3>
+        <h3>Control Panel</h3>
         <p>
-        Map showing median household income by state in year <b>{time}</b>. Hover over a state to
+        Map showing average sentiment value at <b>{time}.00</b> o&apos;clock. Hover over an area to
         see details.
-        </p>
-        <p>
-        Data source: <a href="www.census.gov">US Census Bureau</a>
         </p>
       </div>
       <hr />

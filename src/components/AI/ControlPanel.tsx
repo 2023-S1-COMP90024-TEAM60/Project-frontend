@@ -43,8 +43,8 @@ function ControlPanel({ setCheckedLayer, startTime, endTime, onChangeTime, allDa
       margin: '24px',
       boxShadow: '0 0 4px rgba(0, 0, 0, 0.15',
     } } >
-      <div style={{padding: '12px'}}> <p> Map showing number of tweets <br />
-        from <b>{formatTime(startTime)}</b> to <b>{formatTime(endTime)}</b>.
+      <div style={{padding: '12px'}}> <p> Map showing number of tweets posted which contains<br />
+        AI and related keywords from <b>{formatTime(startTime)}</b> to <b>{formatTime(endTime)}</b>.
       </p>
       <p style={{ marginTop: '8px'}}>Clickable layers</p>
       <Checkbox.Group style={{ width: '100%' }} onChange={onChange} defaultValue={checkedLayer}>

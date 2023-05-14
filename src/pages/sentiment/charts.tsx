@@ -31,7 +31,7 @@ function getLgaSentimentScatterData(lgaSentimentData: any) {
   for (let i = 0; i < lgaSentimentData["features"].length; i++) {
     const data: any = []
     const item = lgaSentimentData["features"][i]["sentiment"];
-    for (let k in item) {
+    for (const k in item) {
       const data_point = {
         time: parseInt(k),
         value: item[k]
@@ -48,7 +48,7 @@ function normalizeSentimentData(lgaSentimentData: any) {
   let min = Number.MAX_VALUE;
   for (let i = 0; i < lgaSentimentData["features"].length; i++) {
     const item = lgaSentimentData["features"][i]["sentiment"];
-    for (let k in item) {
+    for (const k in item) {
       if (item[k] < min) {
         min = item[k];
       }
@@ -60,7 +60,7 @@ function normalizeSentimentData(lgaSentimentData: any) {
 
   for (let i = 0; i < lgaSentimentData["features"].length; i++) {
     const item = lgaSentimentData["features"][i]["sentiment"];
-    for (let k in item) {
+    for (const k in item) {
       item[k] = (item[k] - min) / (max - min);
     }
   }
@@ -134,8 +134,6 @@ export default function SentimentCharts() {
   const australiaSentimentTimelineChartData = useMemo(() => {
     return getAustraliaSentimentTimelineChartData(australiaSentimentTimeline);
   }, [australiaSentimentTimeline]);
-
-
 
   const renderAustraliaSentimentTimeline = useMemo(() => {
     if (australiaSentimentTimeline.length > 0) {
@@ -212,29 +210,28 @@ export default function SentimentCharts() {
       console.log(topSentimentLgaPerStateChartData)
       return (
         <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={topSentimentLgaPerStateChartData}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}`} />
-          <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} height={100}/>
-          <YAxis />
-          <Bar dataKey="sentiment" fill="#8884d8" shape={<TriangleBar />}>
-            {topSentimentLgaPerStateChartData.map((entry: any, index: number) => (
-              <Cell key={`cell-${index}`} fill={stackedChartColorCode[index % 20]} />
-            ))}
-          </Bar>
-        </BarChart>
+          <BarChart
+            data={topSentimentLgaPerStateChartData}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}`} />
+            <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} height={100}/>
+            <YAxis />
+            <Bar dataKey="sentiment" fill="#8884d8" shape={<TriangleBar />}>
+              {topSentimentLgaPerStateChartData.map((entry: any, index: number) => (
+                <Cell key={`cell-${index}`} fill={stackedChartColorCode[index % 20]} />
+              ))}
+            </Bar>
+          </BarChart>
         </ResponsiveContainer>
       )
     }
   }, [topSentimentLgaPerStateChartData])
-  
 
   return (
     <>
       <Head>
-        <title>AI</title>
+        <title>Sentiment</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -278,7 +275,6 @@ export default function SentimentCharts() {
           }
         </Col>
       </Row>
-      
 
     </>
   );

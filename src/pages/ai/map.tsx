@@ -9,6 +9,7 @@ import ClusterLayer from "@/components/AI/ClusterLayer";
 import { getAIData } from "@/utils/api/api";
 import { StatusCodes } from "http-status-codes";
 import MAPBOX_TOKEN from "@/utils/MAPBOX_TOKEN";
+import { Skeleton } from "antd";
 
 export default function AIMap() {
   const [checkedLayer, setCheckedLayer] = useState<string[]>(['cluster']);
@@ -16,11 +17,14 @@ export default function AIMap() {
   const [timeRange, setTimeRange] = useState([0, 0]);
   const [selectedTime, selectTime] = useState(0);
   const [aiData, setAIData] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const response = await getAIData()
       if (response.status === StatusCodes.OK) {
+        setLoading(false);
         const features = response.data.features;
         const sortedFeatures = features.map((feature:any) => ({
           ...feature,
@@ -91,7 +95,8 @@ export default function AIMap() {
         <title>AI</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Map
+      <h3 style={{ marginBottom: '16px', textAlign: 'center'}}>The map for the number of AI related tweets data in Australia</h3>
+      {loading ? <Skeleton active /> : <Map
         initialViewState={{
           longitude: 133.7751,
           latitude: -25.2744,
@@ -115,7 +120,7 @@ export default function AIMap() {
         />
         { checkedLayer.includes('heatmap') && data && <HeatMapLayer heatMapData={data} />}
         { checkedLayer.includes('cluster') && data && <ClusterLayer heatMapData={data} />}
-      </Map>
+      </Map>}
     </>
   );
 }

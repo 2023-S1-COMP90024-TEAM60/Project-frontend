@@ -2,22 +2,22 @@ import axios from 'axios';
 
 const baseUrl = 'http://localhost:8000';
 
-export const getAIData = () => axios(`${baseUrl}/AI/aiData`, {
+export const getAIData = () => axios(`${baseUrl}/ai/aiData`, {
   method: 'GET',
 });
 
-export const getSentimentData = (needLoc: boolean = true) => axios(`${baseUrl}/LGA/sentimentData`, {
+export const getSentimentData = (needLoc = true) => axios(`${baseUrl}/lga/sentimentData`, {
   method: 'GET',
   params: {
     need_loc: needLoc,
   }
 });
 
-export const getAllLgaInfo = () => axios(`${baseUrl}/LGA/lgaInfo`, {
+export const getAllLgaInfo = () => axios(`${baseUrl}/lga/lgaInfo`, {
   method: 'GET',
 });
 
-export const getAICount = (stateCode: number, top: number) => axios(`${baseUrl}/AI/tweetsCount`, {
+export const getAICount = (stateCode: number, top: number) => axios(`${baseUrl}/ai/tweetsCount`, {
   method: 'GET',
   params: {
     state_code: stateCode,
@@ -49,13 +49,13 @@ export const getAILangCount = (stateCodes: string[], lgaCodes: string[]) => {
     params.append("lga_codes", lgaCodes[i]);
   }
 
-  return axios(`${baseUrl}/AI/langCount`, {
+  return axios(`${baseUrl}/ai/langCount`, {
     method: 'GET',
     params: params
   });
 }
 
-export const getAustraliaSentimentTimeline = () => axios(`${baseUrl}/Sentiment/timeline`, {
+export const getAustraliaSentimentTimeline = () => axios(`${baseUrl}/sentiment/timelineCount`, {
   method: 'GET',
 });
 export const getCovidTimelineCount = () => axios(`${baseUrl}/mastodon/covid/timelineCount`, {
@@ -70,6 +70,10 @@ export const getKpopAllGroupData = () => axios(`${baseUrl}/kpop/allGroup`, {
   method: 'GET',
 });
 
-export const getTopSentimentLgaPerState = () => axios(`${baseUrl}/Sentiment/topLgaPerState`, {
+export const getGenderGroupData = () => axios(`${baseUrl}/kpop/genderGroup`, {
+  method: 'GET',
+});
+
+export const getTopSentimentLgaPerState = () => axios(`${baseUrl}/sentiment/topLgaPerState`, {
   method: 'GET',
 });
