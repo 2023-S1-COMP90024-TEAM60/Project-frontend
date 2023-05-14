@@ -69,3 +69,7 @@ export const getCovidKeywordsCount = () => axios(`${baseUrl}/mastodon/covid/keyw
 export const getKpopAllGroupData = () => axios(`${baseUrl}/kpop/allGroup`, {
   method: 'GET',
 });
+
+export const getTopSentimentLgaPerState = () => axios(`${baseUrl}/Sentiment/topLgaPerState`, {
+  method: 'GET',
+});

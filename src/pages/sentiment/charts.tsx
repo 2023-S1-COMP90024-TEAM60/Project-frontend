@@ -3,12 +3,11 @@ import { useEffect, useMemo, useState } from "react";
 import { StatusCodes } from "http-status-codes";
 import { Row, Col, Skeleton } from 'antd';
 import type { MenuProps } from 'antd';
-import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, ScatterChart, Scatter } from 'recharts';
-import { colorCode } from '@/constants/charts';
+import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, ScatterChart, Scatter, BarChart, Bar, Cell, Text } from 'recharts';
+import { colorCode, stackedChartColorCode } from '@/constants/charts';
 
-import { getAllLgaInfo, getAustraliaSentimentTimeline, getSentimentData } from "@/utils/api/api";
+import { getAllLgaInfo, getAustraliaSentimentTimeline, getSentimentData, getTopSentimentLgaPerState } from "@/utils/api/api";
 import { generateColorCodesArray } from '@/utils/functions/charts';
-import LocationFilter from "@/components/common/LocationFilter";
 import styles from "@/pages/sentiment/charts.module.scss";
 
 function getAustraliaSentimentTimelineChartData(australiaSentimentTimelineData: any) {
@@ -68,12 +67,31 @@ function normalizeSentimentData(lgaSentimentData: any) {
   return lgaSentimentData
 }
 
+function getTopSentimentLgaPerStateChartData(topSentimentLgaPerStateData: any, lgaInfo: any) {
+  const data: any = [];
+  if (Object.keys(lgaInfo).length == 0) {
+    return data;
+  }
+  if (topSentimentLgaPerStateData.length) {
+    for (let i = 0; i < topSentimentLgaPerStateData.length; i++) {
+      const item = topSentimentLgaPerStateData[i];
+      const data_point: any = {
+        "sentiment": item["sentiment"],
+        "suburb": lgaInfo["suburbs"][parseInt(item["lga_code"])]["name"],
+        "state": lgaInfo["states"][parseInt(item["state_code"])]["name"],
+        "name": `${lgaInfo["states"][parseInt(item["state_code"])]["name"]} - ${lgaInfo["suburbs"][parseInt(item["lga_code"])]["name"]}`
+      }
+      data.push(data_point)
+    }
+  }
+  return data;
+}
+
 export default function SentimentCharts() {
   const [lgaInfo, setLgaInfo]: any = useState({});
   const [australiaSentimentTimeline, setAustraliaSentimentTimeline] = useState([]);
   const [lgaSentimentData, setLgaSentimentData]: any = useState({});
-  const [selectedState, setSelectedState] = useState(0);
-  const [selectedSuburb, setSelectedSuburb] = useState(0);
+  const [topSentimentLgaPerState, setTopSentimentLgaPerState]: any = useState({});
   useEffect(() => {
     const fetchLgaInfoData = async () => {
       const response = await getAllLgaInfo();
@@ -98,9 +116,19 @@ export default function SentimentCharts() {
         setLgaSentimentData(normalizeSentimentData(data));
       }
     }
+
+    const fetchTopSentimentLgaPerState = async () => {
+      const response = await getTopSentimentLgaPerState();
+      if (response.status === StatusCodes.OK) {
+        const data = response.data;
+        setTopSentimentLgaPerState(data);
+      }
+    }
+
     fetchLgaInfoData();
     fetchAustraliaSentimentTimeline();
     fetchLgaSentimentData();
+    fetchTopSentimentLgaPerState();
   }, []);
 
   const australiaSentimentTimelineChartData = useMemo(() => {
@@ -138,12 +166,12 @@ export default function SentimentCharts() {
     if (lgaSentimentScatterData.length > 0) {
       return (
         <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart>
-            <CartesianGrid  strokeDasharray="3 3" />
+          <ScatterChart >
+            <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" dataKey="time" />
             <YAxis type="number" dataKey="value" range={[-1, 0.25]} allowDataOverflow={false} />
             {lgaSentimentScatterData.map((lga_data: any, index: number) => (
-              <Scatter data={lga_data} fill={scatterColorCode[index % scatterColorCode.length]}>
+              <Scatter data={lga_data} fill={scatterColorCode[index % scatterColorCode.length]} isAnimationActive={false}>
               </Scatter>
             ))
             }
@@ -155,9 +183,53 @@ export default function SentimentCharts() {
     }
   }, [lgaSentimentScatterData])
 
-  const handleStateMenuClick: MenuProps['onClick'] = async (e) => {
-    setSelectedState(parseInt(e.key))
-  }
+  const topSentimentLgaPerStateChartData = useMemo(() => {
+    return getTopSentimentLgaPerStateChartData(topSentimentLgaPerState, lgaInfo);
+  }, [lgaInfo, topSentimentLgaPerState]);
+
+  const getPath = (x: number, y: number, width: number, height: number) => {
+    return `M${x},${y + height}C${x + width / 3},${y + height} ${x + width / 2},${y + height / 3}
+    ${x + width / 2}, ${y}
+    C${x + width / 2},${y + height / 3} ${x + (2 * width) / 3},${y + height} ${x + width}, ${y + height}
+    Z`;
+  };
+
+  const TriangleBar = (props: any) => {
+    const { fill, x, y, width, height } = props;
+  
+    return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
+  };
+
+  const CustomizedAxisTick = (props: any) => {
+    const {x, y, payload} = props;
+  
+    return <Text x={x} y={y} width={75} textAnchor="middle" verticalAnchor="start">{payload.value}</Text>
+  };
+
+  const renderTopSentimentLgaPerStateChart = useMemo(() => {
+    if (topSentimentLgaPerStateChartData.length > 0) {
+      console.log("renderTopSentimentLgaPerStateChart")
+      console.log(topSentimentLgaPerStateChartData)
+      return (
+        <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={topSentimentLgaPerStateChartData}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}`} />
+          <XAxis dataKey="name" interval={0} tick={<CustomizedAxisTick />} height={100}/>
+          <YAxis />
+          <Bar dataKey="sentiment" fill="#8884d8" shape={<TriangleBar />}>
+            {topSentimentLgaPerStateChartData.map((entry: any, index: number) => (
+              <Cell key={`cell-${index}`} fill={stackedChartColorCode[index % 20]} />
+            ))}
+          </Bar>
+        </BarChart>
+        </ResponsiveContainer>
+      )
+    }
+  }, [topSentimentLgaPerStateChartData])
+  
 
   return (
     <>
@@ -166,11 +238,19 @@ export default function SentimentCharts() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <LocationFilter
-        states={lgaInfo["states"]}
-        selectedState={selectedState}
-        handleStateMenuClick={handleStateMenuClick}
-      />
+      <Row gutter={[16, 16]} style={{ minHeight: "50vh" }}>
+        <Col span={24}>
+          {topSentimentLgaPerStateChartData.length > 0 &&
+            <div style={{ height: "60vh" }} className={styles.chart}>
+              <h3>{`Happiest suburb in each state`}</h3>
+              {renderTopSentimentLgaPerStateChart}
+            </div>
+          }
+          {topSentimentLgaPerStateChartData.length == 0 &&
+            <Skeleton active />
+          }
+        </Col>
+      </Row>
 
       <Row gutter={[16, 16]} style={{ minHeight: "50vh" }}>
         <Col span={24}>
@@ -198,6 +278,7 @@ export default function SentimentCharts() {
           }
         </Col>
       </Row>
+      
 
     </>
   );
