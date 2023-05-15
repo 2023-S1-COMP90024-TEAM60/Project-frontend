@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import { StatusCodes } from "http-status-codes";
-import { Row, Col } from 'antd';
+import { Row, Col, Skeleton } from 'antd';
 import type { MenuProps } from 'antd';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, Line } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ComposedChart, Line, LabelList } from 'recharts';
 import { v4 as uuidv4 } from 'uuid';
 import { ageKey, genderKey, educationLevelKey, languageKey, colorCode, stackedChartColorCode } from '@/constants/charts';
 
@@ -275,17 +275,18 @@ export default function AICharts() {
             layout="vertical"
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <YAxis dataKey="name" type="category" width={100}/>
+            <YAxis dataKey="name" type="category" width={100} />
             <XAxis
               type="number"
               tickFormatter={tick => `${tick}%`}
-              
+
             />
             <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}%`} />
             <Legend />
             {selectedState != 0 &&
               Object.keys(aiTweetsCount["ai_count"]).map((key, index) => {
-                return <Bar key={translateStateLgaToLga(key)} name={lgaInfo["suburbs"][translateStateLgaToLga(key)]["name"]} dataKey={translateStateLgaToLga(key)} fill={colorCode[index]} />
+                return <Bar key={translateStateLgaToLga(key)} name={lgaInfo["suburbs"][translateStateLgaToLga(key)]["name"]} dataKey={translateStateLgaToLga(key)} fill={colorCode[index]} >
+                </Bar>
               })
             }
             {selectedState == 0 &&
@@ -320,7 +321,6 @@ export default function AICharts() {
               width={100}
             />
             <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}%`} />
-            <Legend />
             <Bar dataKey={"location_lang_count"} name={"% english language"}>
               {englishLanguageData.map((entry: any, index: any) => (
                 <Cell key={`cell-${index}`} fill={colorCode[index]} />
@@ -361,7 +361,6 @@ export default function AICharts() {
               width={100}
             />
             <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}%`} />
-            <Legend />
             <Bar dataKey={"location_lang_count"} name={"% other languages"}>
               {englishLanguageData.map((entry: any, index: any) => (
                 <Cell key={`cell-${index}`} fill={colorCode[index]} />
@@ -404,6 +403,9 @@ export default function AICharts() {
               {renderAgeGraph}
             </div>
           }
+          {ageData.length == 0 &&
+            <Skeleton active />
+          }
         </Col>
         <Col span={12}>
           {educationLevelData.length > 0 &&
@@ -412,23 +414,32 @@ export default function AICharts() {
               {renderEducationLevelGraph}
             </div>
           }
+          {educationLevelData.length == 0 &&
+            <Skeleton active />
+          }
         </Col>
       </Row>
       <Row gutter={[16, 16]} style={{ minHeight: "50vh" }}>
         <Col span={12}>
           {languageData.length > 0 &&
             <div style={{ height: "60vh" }} className={styles.chart}>
-              <h3>{`English language distribution of the top 3 ${selectedState == 0 ? "states" : "suburbs"}`}</h3>
+              <h3>{`English Language Usage of the top 3 ${selectedState == 0 ? "states" : "suburbs"}: A Comparative Analysis of Spoken Conversations and Twitter Activity`}</h3>
               {renderEnglishLanguageGraph}
             </div>
+          }
+          {languageData.length == 0 &&
+            <Skeleton active />
           }
         </Col>
         <Col span={12}>
           {languageData.length > 0 &&
             <div style={{ height: "60vh" }} className={styles.chart}>
-              <h3>{`Other languages distribution of the top 3 ${selectedState == 0 ? "states" : "suburbs"}`}</h3>
+              <h3>{`Non-English Language Usage of the top 3 ${selectedState == 0 ? "states" : "suburbs"}: A Comparative Analysis of Spoken Conversations and Twitter Activity`}</h3>
               {renderOtherLanguageGraph}
             </div>
+          }
+          {languageData.length == 0 &&
+            <Skeleton active />
           }
         </Col>
       </Row>
@@ -439,6 +450,9 @@ export default function AICharts() {
               <h3>{`Gender distribution of the top 3 ${selectedState == 0 ? "states" : "suburbs"}`}</h3>
               {renderGenderGraph}
             </div>
+          }
+          {genderData.length == 0 &&
+            <Skeleton active />
           }
         </Col>
       </Row>

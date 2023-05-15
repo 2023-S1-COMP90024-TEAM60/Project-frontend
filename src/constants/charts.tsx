@@ -1,47 +1,47 @@
 export const ageKey = [
   {
     id: "age_0_4",
-    name: "0yo to 4yo"
+    name: "0y to 4y"
   },
   {
     id: "age_5_14",
-    name: "5yo to 14yo"
+    name: "5y to 14y"
   },
   {
     id: "age_15_19",
-    name: "15yo to 19yo"
+    name: "15y to 19y"
   },
   {
     id: "age_20_24",
-    name: "20yo to 24yo"
+    name: "20y to 24y"
   },
   {
     id: "age_25_34",
-    name: "25yo to 34yo"
+    name: "25y to 34y"
   },
   {
     id: "age_35_44",
-    name: "35yo to 44yo"
+    name: "35y to 44y"
   },
   {
     id: "age_45_54",
-    name: "45yo to 54yo"
+    name: "45y to 54y"
   },
   {
     id: "age_55_64",
-    name: "55yo to 64yo"
+    name: "55y to 64y"
   },
   {
     id: "age_65_74",
-    name: "65yo to 74yo"
+    name: "65y to 74y"
   },
   {
     id: "age_75_84",
-    name: "75 to 84yo"
+    name: "75 to 84y"
   },
   {
     id: "age_85ov",
-    name: "85yo or above"
+    name: "85y or above"
   }
 ]
 

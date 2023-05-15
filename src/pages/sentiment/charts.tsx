@@ -43,30 +43,6 @@ function getLgaSentimentScatterData(lgaSentimentData: any) {
   return data_by_lga;
 }
 
-function normalizeSentimentData(lgaSentimentData: any) {
-  let max = Number.MIN_VALUE;
-  let min = Number.MAX_VALUE;
-  for (let i = 0; i < lgaSentimentData["features"].length; i++) {
-    const item = lgaSentimentData["features"][i]["sentiment"];
-    for (const k in item) {
-      if (item[k] < min) {
-        min = item[k];
-      }
-      if (item[k] > max) {
-        max = item[k]
-      }
-    }
-  }
-
-  for (let i = 0; i < lgaSentimentData["features"].length; i++) {
-    const item = lgaSentimentData["features"][i]["sentiment"];
-    for (const k in item) {
-      item[k] = (item[k] - min) / (max - min);
-    }
-  }
-  return lgaSentimentData
-}
-
 function getTopSentimentLgaPerStateChartData(topSentimentLgaPerStateData: any, lgaInfo: any) {
   const data: any = [];
   if (Object.keys(lgaInfo).length == 0) {
@@ -109,14 +85,6 @@ export default function SentimentCharts() {
       }
     }
 
-    const fetchLgaSentimentData = async () => {
-      const response = await getSentimentData(false);
-      if (response.status === StatusCodes.OK) {
-        const data = response.data;
-        setLgaSentimentData(normalizeSentimentData(data));
-      }
-    }
-
     const fetchTopSentimentLgaPerState = async () => {
       const response = await getTopSentimentLgaPerState();
       if (response.status === StatusCodes.OK) {
@@ -127,7 +95,6 @@ export default function SentimentCharts() {
 
     fetchLgaInfoData();
     fetchAustraliaSentimentTimeline();
-    fetchLgaSentimentData();
     fetchTopSentimentLgaPerState();
   }, []);
 
@@ -144,7 +111,7 @@ export default function SentimentCharts() {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis />
+            <YAxis domain={[0.1, 0.16]} />
             <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}`} />
             <Legend name="Average sentiment level" />
             <Line type="monotone" dataKey="value" stroke={colorCode[0]} activeDot={{ r: 8 }} name="Average sentiment level" />
@@ -206,8 +173,6 @@ export default function SentimentCharts() {
 
   const renderTopSentimentLgaPerStateChart = useMemo(() => {
     if (topSentimentLgaPerStateChartData.length > 0) {
-      console.log("renderTopSentimentLgaPerStateChart")
-      console.log(topSentimentLgaPerStateChartData)
       return (
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -258,19 +223,6 @@ export default function SentimentCharts() {
             </div>
           }
           {australiaSentimentTimelineChartData.length == 0 &&
-            <Skeleton active />
-          }
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]} style={{ minHeight: "50vh" }}>
-        <Col span={24}>
-          {lgaSentimentScatterData.length > 0 &&
-            <div style={{ height: "60vh" }} className={styles.chart}>
-              <h3>{`Normalized sentiment level of all the suburbs in a day`}</h3>
-              {renderlgaSentimentScatter}
-            </div>
-          }
-          {lgaSentimentScatterData.length == 0 &&
             <Skeleton active />
           }
         </Col>
