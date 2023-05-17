@@ -227,41 +227,6 @@ export default function AICharts() {
     }
   }, [ageData, lgaInfo])
 
-  const genderData = useMemo(() => {
-    return getDistributionData(genderKey, "total_gender", aiTweetsCount, sudoLocationInfo, selectedState);
-  }, [aiCountDataVersion]);
-
-  const renderGenderGraph = useMemo(() => {
-    if (genderData.length > 0 && Object.keys(lgaInfo).length > 0) {
-      return (
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={genderData}
-            layout="horizontal"
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" type="category" />
-            <YAxis
-              type="number"
-              tickFormatter={tick => `${tick}%`}
-              width={100}
-            />
-            <Tooltip formatter={(value) => `${Number(value).toFixed(2).toString()}%`} />
-            <Legend />
-            {selectedState != 0 &&
-              Object.keys(aiTweetsCount["ai_count"]).map((key, index) => {
-                return <Bar key={translateStateLgaToLga(key)} name={lgaInfo["suburbs"][translateStateLgaToLga(key)]["name"]} dataKey={translateStateLgaToLga(key)} fill={colorCode[index]} />
-              })
-            }
-            {selectedState == 0 &&
-              Object.keys(aiTweetsCount["ai_count"]).map((key, index) => <Bar key={key} name={lgaInfo["states"][key]["name"]} dataKey={key} fill={colorCode[index]} />)
-            }
-          </BarChart>
-        </ResponsiveContainer>
-      )
-    }
-  }, [ageData, lgaInfo])
-
   const educationLevelData = useMemo(() => {
     return getDistributionData(educationLevelKey, "total_edu", aiTweetsCount, sudoLocationInfo, selectedState);
   }, [aiCountDataVersion]);
@@ -439,19 +404,6 @@ export default function AICharts() {
             </div>
           }
           {languageData.length == 0 &&
-            <Skeleton active />
-          }
-        </Col>
-      </Row>
-      <Row gutter={[16, 16]} style={{ minHeight: "50vh" }}>
-        <Col span={12}>
-          {genderData.length > 0 &&
-            <div style={{ height: "60vh" }} className={styles.chart}>
-              <h3>{`Gender distribution of the top 3 ${selectedState == 0 ? "states" : "suburbs"}`}</h3>
-              {renderGenderGraph}
-            </div>
-          }
-          {genderData.length == 0 &&
             <Skeleton active />
           }
         </Col>
