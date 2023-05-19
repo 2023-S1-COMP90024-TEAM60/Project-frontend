@@ -8,6 +8,7 @@ import { ReactNode, useState } from 'react'
 import { Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
 import { useRouter } from 'next/router';
 import { useBreadcrumbPath } from '@/utils/hooks/useBreadcrumbPath';
+import Image from 'next/image';
 interface Props {
   children?: ReactNode
 }
@@ -20,12 +21,12 @@ const menuItems: MenuItem[] = [
     { label: "Map", key: "/ai/map" },
     { label: "Charts", key: "/ai/charts" },
   ] },
-  { label: "Covid-19", key: "/covid19", icon: <TeamOutlined /> },
-  { label: "Kpop", key: "/kpop", icon: <TrophyOutlined /> },
   { label: "Sentiment", key: "/sentiment", icon: <SmileOutlined />, children: [
     { label: "Map", key: "/sentiment/map" },
     { label: "Charts", key: "/sentiment/charts" },
   ] },
+  { label: "Kpop", key: "/kpop", icon: <TrophyOutlined /> },
+  { label: "Covid19 - Mastodon", key: "/covid19", icon: <TeamOutlined /> },
 ]
 
 export default function AppLayout({ children }: Props) {
@@ -40,7 +41,7 @@ export default function AppLayout({ children }: Props) {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
+        <div style={{ height: 32, margin: 16 }} > <Image src="/uomlogo.jpeg" alt="logo" width={160} height={50} /></div>
         <Menu theme="dark" mode="inline" selectedKeys={[selected]} items={menuItems} onClick={({key}) => {
           if (key) {
             router.push(key)
