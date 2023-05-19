@@ -21,11 +21,11 @@ const menuItems: MenuItem[] = [
     { label: "Map", key: "/ai/map" },
     { label: "Charts", key: "/ai/charts" },
   ] },
+  { label: "Kpop", key: "/kpop", icon: <TrophyOutlined /> },
   { label: "Sentiment", key: "/sentiment", icon: <SmileOutlined />, children: [
     { label: "Map", key: "/sentiment/map" },
     { label: "Charts", key: "/sentiment/charts" },
   ] },
-  { label: "Kpop", key: "/kpop", icon: <TrophyOutlined /> },
   { label: "Covid19 - Mastodon", key: "/covid19", icon: <TeamOutlined /> },
 ]
 
@@ -41,8 +41,16 @@ export default function AppLayout({ children }: Props) {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        { !collapsed ? <div style={{ height: 32, margin: 16 }} > <Image src="/uomlogo.jpeg" alt="logo" width={160} height={50} /></div> : 
-          <div style={{ height: 32, margin: 16 }} > <Image src="/logo.png" alt="logo" width={50} height={50} /></div>}
+        <div style={{
+          height: 32,
+          margin: 16,
+          background: 'rgba(255, 255, 255, 0.2)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent:'center'
+        }} >
+          <h3 style={{fontSize: '18px', color: 'white'}}>TEAM 60</h3>
+        </div>
         <Menu theme="dark" mode="inline" selectedKeys={[selected]} items={menuItems} onClick={({key}) => {
           if (key) {
             router.push(key)
