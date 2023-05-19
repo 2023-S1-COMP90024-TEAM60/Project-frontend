@@ -41,7 +41,8 @@ export default function AppLayout({ children }: Props) {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div style={{ height: 32, margin: 16 }} > <Image src="/uomlogo.jpeg" alt="logo" width={160} height={50} /></div>
+        { !collapsed ? <div style={{ height: 32, margin: 16 }} > <Image src="/uomlogo.jpeg" alt="logo" width={160} height={50} /></div> : 
+          <div style={{ height: 32, margin: 16 }} > <Image src="/logo.png" alt="logo" width={50} height={50} /></div>}
         <Menu theme="dark" mode="inline" selectedKeys={[selected]} items={menuItems} onClick={({key}) => {
           if (key) {
             router.push(key)
