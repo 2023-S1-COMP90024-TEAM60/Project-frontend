@@ -34,7 +34,7 @@ export default function Kpop() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div style={{width: "100%"}}>
-        <h3 style={{marginBottom: "16px", textAlign: 'center'}}>Top 6 kpop groups</h3>
+        <h3 style={{marginBottom: "16px", textAlign: 'center'}}>Top 5 kpop groups mentioned in tweets</h3>
         <ResponsiveContainer width="100%" height={400}>
           <PieChart
             margin={{
@@ -77,8 +77,8 @@ export default function Kpop() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="value.boys" name="boys" fill="#8884d8" />
-            <Bar dataKey="value.girls" name="girls" fill="#82ca9d" />
+            <Bar dataKey="value.boys" name="boy band" fill="#8884d8" />
+            <Bar dataKey="value.girls" name="girl group" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>

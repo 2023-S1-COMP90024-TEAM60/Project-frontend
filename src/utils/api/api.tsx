@@ -66,6 +66,10 @@ export const getCovidKeywordsCount = () => axios(`${baseUrl}/mastodon/covid/keyw
   method: 'GET',
 });
 
+export const getCovidTwitterCount = () => axios(`${baseUrl}/covid/twitter`, {
+  method: 'GET',
+});
+
 export const getKpopAllGroupData = () => axios(`${baseUrl}/kpop/allGroup`, {
   method: 'GET',
 });

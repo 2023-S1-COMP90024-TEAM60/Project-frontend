@@ -26,7 +26,7 @@ const menuItems: MenuItem[] = [
     { label: "Map", key: "/sentiment/map" },
     { label: "Charts", key: "/sentiment/charts" },
   ] },
-  { label: "Covid19 - Mastodon", key: "/covid19", icon: <TeamOutlined /> },
+  { label: "Covid-19", key: "/covid-19", icon: <TeamOutlined /> },
 ]
 
 export default function AppLayout({ children }: Props) {
